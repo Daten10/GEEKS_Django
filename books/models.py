@@ -28,3 +28,17 @@ class AddBooks(models.Model):
     class Meta:
         verbose_name = 'книга(у)'
         verbose_name_plural = 'книг(и)'
+
+
+class Review(models.Model):
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Отзыв - {self.created_at}'
+
+    class Meta:
+        verbose_name = 'отзыв'
+        verbose_name_plural = 'отзывы'
+
+
