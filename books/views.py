@@ -1,6 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from datetime import datetime
+from .models import AddBooks
+
+
+def add_books_view(request):
+    if request.method == 'GET':
+        book = AddBooks.objects.all().order_by('-id')
+        return render(request, template_name='books.html', context={'book': book})
+
+
+def books_detail_view(request, id):
+    if request.method == 'GET':
+        books_id = get_object_or_404(AddBooks, id=id)
+        return render(request, template_name='books_detail.html', context={'books_id': books_id})
 
 
 def bio_view(request):
