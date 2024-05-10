@@ -16,14 +16,14 @@ def books_detail_view(request, id):
         return render(request, template_name='books_detail.html', context={'books_id': books_id})
 
 
-def review_view(request):
-    if request.method == 'GET':
-        review_text = request.GET.get('review', '')
-        if review_text:
-            Review.objects.create(text=review_text)
-            return redirect('/books/')
-    reviews = Review.objects.all()
-    return render(request, 'reviews.html', {'reviews': reviews})
+# def review_view(request):
+#     if request.method == 'GET':
+#         review_text = request.GET.get('review', '')
+#         if review_text:
+#             Review.objects.create(text=review_text)
+#             return redirect('/books/')
+#     reviews = Review.objects.all()
+#     return render(request, 'reviews.html', {'reviews': reviews})
 
 
 def bio_view(request):

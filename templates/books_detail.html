@@ -30,6 +30,19 @@
 <p>Жанр: {{ books_id.book_genre }}</p>
 <p>Дата публикации: {{ books_id.publication }} </p>
 <p>Ключевые слова: {{ books_id.key_words }} </p>
+<br>
+<br>
+
+<table border="2">
+    <tr>
+        <td>Оценка</td> <td>Отзыв</td> <td>Дата отзыва</td>
+    </tr>
+    {% for i in books_id.review_book.all %}
+    <tr>
+        <td>{{ i.stars }}</td> <td>{{ i.text }}</td> <td>{{ i.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
 <br>
 <br>
