@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<img src=" {{ books_id.image.url }}" alt="">
+<h1>{{ books_id.title }}</h1>
+<p>Автор: {{ books_id.author }} </p>
+<p>Описание:{{ books_id.description }}</p>
+
+{% if books_id.video %}
+    <iframe src="{{ books_id.video }}" frameborder="0"></iframe>
+{% endif %}
+
+{% if books_id.audio_book %}
+    {% if books_id.audio_book.url %}
+        <audio controls>
+            <source src="{{ books_id.audio_book.url }}">
+        </audio>
+    {% else %}
+        <p>Error: The 'audio_book' attribute has no file associated with it.</p>
+    {% endif %}
+{% endif %}
+
+
+<p>Цена: {{ books_id.price }}₽ </p>
+<p>Жанр: {{ books_id.book_genre }}</p>
+<p>Дата публикации: {{ books_id.publication }} </p>
+<p>Ключевые слова: {{ books_id.key_words }} </p>
+
+<br>
+<br>
+<button><a href="/books/">Вернуться назад</a></button>
+</body>
+</html>

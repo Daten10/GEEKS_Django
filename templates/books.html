@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<ul style="list-style-type: none;">
+
+    {% for i in book%}
+    <li>
+        <img src=" {{ i.image.url }}" alt="" width="300" height="300">
+        <h1>{{ i.title }}</h1>
+        <p>{{ i.publication }}</p>
+        <button><a href="/books/{{ i.id }}">Подробнее</a></button>
+        <br><br>
+    </li>
+    {% endfor %}
+</ul>
+
+
+<button><a href="/books/reviews">ОТЗЫВЫ</a></button>
+
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Отзывы</h2>
+    <ul>
+    {% for review in reviews %}
+    <li>
+       <p>{{ review.text }}</p>
+    </li>
+    {% endfor %}
+</ul>
+
+<form action="/books/reviews/" method="get">
+    <label for="review">Оставьте ваш отзыв:</label><br>
+    <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+    <input type="submit" value="Отправить отзыв">
+</form>
+<br>
+<br>
+<button><a href="/books/">Вернуться назад</a></button>
+</body>
+</html>
