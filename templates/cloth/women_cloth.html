@@ -1,20 +1,33 @@
 {% include 'header.html'%}
-    <ol>
           {% for i in women_cloth %}
             <li>
-                <img src=" {{ i.image.url }}" alt="" width="450" height="500">
-                <p>{{ i.name }}</p>
-                <p>{{ i.price }}$</p>
-                <p>{{ i.description }}</p>
-                {% for j in i.tags.all %}
+                <center>
+                <div class="card" style="width: 18rem;">
+                <img src="{{ i.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{ i.name }}</h5>
+                <p class="card-text">{{ i.price }}$</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ i.description }}</li>
+                <li class="list-group-item">{% for j in i.tags.all %}
                     <p>#{{ j.name }}</p>
-                {% endfor %}
+                {% endfor %}</li>
+                </ul>
+                </div>
+                </center>
             </li>
           {% endfor %}
-    </ol>
-    <button><a href="/men_cloth/">М</a></button>
-    <button><a href="/kids_cloth/">Д</a></button>
-    <button><a href="/women_cloth/">Ж</a></button>
-    <button><a href="/cloth_all/">Вернуться</a></button>
+    <br>
+    <center>
+    <a class="btn btn-primary" href="/men_cloth/" role="button">М</a>
+    <a class="btn btn-primary" href="/kids_cloth/" role="button">Д</a>
+    <a class="btn btn-primary" href="/women_cloth/" role="button">Ж</a>
+    <br>
+    <br>
+    <a class="btn btn-primary" href="/cloth_all/" role="button">Вернуться</a>
+
+    </center>
+<br>
 
 {% include 'footer.html'%}

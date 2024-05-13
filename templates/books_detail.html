@@ -1,15 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% include 'header.html'%}
+<br>
+<center>
 
-<img src=" {{ books_id.image.url }}" alt="">
-<h1>{{ books_id.title }}</h1>
-<p>Автор: {{ books_id.author }} </p>
-<p>Описание:{{ books_id.description }}</p>
+
+<img src="{{ books_id.image.url }}" class="img-thumbnail" alt="">
+<br>
+    <br>
+<div class="card" style="width: 30rem;">
+  <div class="card-header">
+    <h1>{{ books_id.title }}</h1>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Автор: {{ books_id.author }}</li>
+    <li class="list-group-item">Описание:{{ books_id.description }}</li>
+    <li class="list-group-item"><b>Цена: {{ books_id.price }}₽</b> </li>
+    <li class="list-group-item">Жанр: {{ books_id.book_genre }}</li>
+    <li class="list-group-item">Дата публикации: {{ books_id.publication }}</li>
+    <li class="list-group-item">Ключевые слова: {{ books_id.key_words }}</li>
+  </ul>
+</div>
+
+
+<p> </p>
+<p></p>
 
 {% if books_id.video %}
     <iframe src="{{ books_id.video }}" frameborder="0"></iframe>
@@ -25,17 +38,12 @@
     {% endif %}
 {% endif %}
 
-
-<p>Цена: {{ books_id.price }}₽ </p>
-<p>Жанр: {{ books_id.book_genre }}</p>
-<p>Дата публикации: {{ books_id.publication }} </p>
-<p>Ключевые слова: {{ books_id.key_words }} </p>
 <br>
 <br>
 
-<table border="2">
+<table border="1" width="600" cellpadding="5">
     <tr>
-        <td>Оценка</td> <td>Отзыв</td> <td>Дата отзыва</td>
+        <td>Оценка </td>  <td>Отзыв</td> <td>Дата отзыва</td>
     </tr>
     {% for i in books_id.review_book.all %}
     <tr>
@@ -46,6 +54,8 @@
 
 <br>
 <br>
-<button><a href="/books/">Вернуться назад</a></button>
-</body>
-</html>
+<a class="btn btn-primary" href="/books/" role="button">Вернуться назад</a>
+
+</center>
+<br>
+{% include 'footer.html'%}
