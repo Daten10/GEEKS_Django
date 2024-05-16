@@ -7,8 +7,11 @@
 <div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-4">
+
       <img
+
         src="{{ j.image.url }}"
+
         class="img-fluid rounded-start"
       />
     </div>
@@ -28,6 +31,7 @@
 </div>
  {% endfor %}
 
-
+<a class="btn btn-primary" href="/create_book/" role="button">Добавить книгу</a>
+<a class="btn btn-primary" href="/create_review/" role="button">Добавить отзыв</a>
 </ul>
 {% include 'footer.html'%}

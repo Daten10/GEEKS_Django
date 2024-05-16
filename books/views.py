@@ -1,7 +1,51 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from datetime import datetime
-from .models import AddBooks, Review
+from .models import AddBooks
+from . import forms
+
+
+def create_review_view(request):
+    if request.method == 'POST':
+        form = forms.ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Коментарий добавлен!')
+    else:
+        form = forms.ReviewForm()
+
+    return render(request, template_name='create_review.html', context={'form': form})
+
+
+def edit_book_view(request, id):
+    book_id = get_object_or_404(AddBooks, id=id)
+    if request.method == 'POST':
+        form = forms.BookForm(request.POST, instance=book_id)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Книга изменена!')
+    else:
+        form = forms.BookForm(instance=book_id)
+    return render(request, template_name='edit.html', context={'book_id': book_id,
+                                                               'form': form})
+
+
+def delete_book_view(request, id):
+    book_id = get_object_or_404(AddBooks, id=id)
+    book_id.delete()
+    return HttpResponse('Книга удалена')
+
+
+def create_book_view(request):
+    if request.method == 'POST':
+        form = forms.BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Книга добавлена!')
+    else:
+        form = forms.BookForm()
+
+    return render(request, template_name='create_book.html', context={'form': form})
 
 
 def add_books_view(request):
@@ -14,16 +58,6 @@ def books_detail_view(request, id):
     if request.method == 'GET':
         books_id = get_object_or_404(AddBooks, id=id)
         return render(request, template_name='books_detail.html', context={'books_id': books_id})
-
-
-# def review_view(request):
-#     if request.method == 'GET':
-#         review_text = request.GET.get('review', '')
-#         if review_text:
-#             Review.objects.create(text=review_text)
-#             return redirect('/books/')
-#     reviews = Review.objects.all()
-#     return render(request, 'reviews.html', {'reviews': reviews})
 
 
 def bio_view(request):
