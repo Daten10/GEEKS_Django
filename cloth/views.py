@@ -1,27 +1,39 @@
 from django.shortcuts import render
 from . import models
+from django.views import generic
 
 
-def all_cloth(request):
-    if request.method == 'GET':
-        cloth = models.Cloth.objects.all().order_by('-id')
-        return render(request, template_name='cloth/all_cloth.html', context={'cloth': cloth})
+class AddClothView(generic.ListView):
+    template_name = 'cloth/all_cloth.html'
+    context_object_name = 'cloth'
+    model = models.Cloth
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-id')
 
 
-def men_cloth(request):
-    if request.method == 'GET':
-        men_cloth = models.Cloth.objects.filter(tags__name='мужская одежда').order_by('-id')
-        return render(request, template_name='cloth/men_cloth.html', context={'men_cloth': men_cloth})
+class MenClothView(generic.ListView):
+    template_name = 'cloth/men_cloth.html'
+    context_object_name = 'men_cloth'
+    model = models.Cloth
+
+    def get_queryset(self):
+        return self.model.objects.filter(tags__name='мужская одежда').order_by('-id')
 
 
-def women_cloth(request):
-    if request.method == 'GET':
-        women_cloth = models.Cloth.objects.filter(tags__name='женская одежда').order_by('-id')
-        return render(request, template_name='cloth/women_cloth.html', context={'women_cloth': women_cloth})
+class WomenClothView(generic.ListView):
+    template_name = 'cloth/women_cloth.html'
+    context_object_name = 'women_cloth'
+    model = models.Cloth
+
+    def get_queryset(self):
+        return self.model.objects.filter(tags__name='женская одежда').order_by('-id')
 
 
-def kids_cloth(request):
-    if request.method == 'GET':
-        kids_cloth = models.Cloth.objects.filter(tags__name='детская одежда').order_by('-id')
-        return render(request, template_name='cloth/kids_cloth.html', context={'kids_cloth': kids_cloth})
+class KidsClothView(generic.ListView):
+    template_name = 'cloth/kids_cloth.html'
+    context_object_name = 'kids_cloth'
+    model = models.Cloth
 
+    def get_queryset(self):
+        return self.model.objects.filter(tags__name='детская одежда').order_by('-id')

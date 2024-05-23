@@ -1,63 +1,83 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from datetime import datetime
-from .models import AddBooks
-from . import forms
+from . import forms, models
+from django.views import generic
 
 
-def create_review_view(request):
-    if request.method == 'POST':
-        form = forms.ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponse('Коментарий добавлен!')
-    else:
-        form = forms.ReviewForm()
+class CreateReviewView(generic.CreateView):
+    template_name = 'create_review.html'
+    form_class = forms.ReviewForm
+    success_url = '/books/'
 
-    return render(request, template_name='create_review.html', context={'form': form})
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(CreateReviewView, self).form_valid(form=form)
 
 
-def edit_book_view(request, id):
-    book_id = get_object_or_404(AddBooks, id=id)
-    if request.method == 'POST':
-        form = forms.BookForm(request.POST, instance=book_id)
-        if form.is_valid():
-            form.save()
-            return HttpResponse('Книга изменена!')
-    else:
-        form = forms.BookForm(instance=book_id)
-    return render(request, template_name='edit.html', context={'book_id': book_id,
-                                                               'form': form})
+class EditBookView(generic.UpdateView):
+    template_name = 'edit.html'
+    form_class = forms.BookForm
+    success_url = '/books/'
+
+    def get_object(self, **kwargs):
+        book_id = self.kwargs.get("id")
+        return get_object_or_404(models.AddBooks, id=book_id)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(EditBookView, self).form_valid(form=form)
 
 
-def delete_book_view(request, id):
-    book_id = get_object_or_404(AddBooks, id=id)
-    book_id.delete()
-    return HttpResponse('Книга удалена')
+class DeleteBookView(generic.DeleteView):
+    template_name = 'confirm_delete.html'
+    success_url = '/books/'
+
+    def get_object(self, **kwargs):
+        book_id = self.kwargs.get("id")
+        return get_object_or_404(models.AddBooks, id=book_id)
 
 
-def create_book_view(request):
-    if request.method == 'POST':
-        form = forms.BookForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponse('Книга добавлена!')
-    else:
-        form = forms.BookForm()
+class CreateBookView(generic.CreateView):
+    template_name = 'create_book.html'
+    form_class = forms.BookForm
+    success_url = '/books/'
 
-    return render(request, template_name='create_book.html', context={'form': form})
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(CreateBookView, self).form_valid(form=form)
 
 
-def add_books_view(request):
-    if request.method == 'GET':
-        book = AddBooks.objects.all().order_by('-id')
-        return render(request, template_name='books.html', context={'book': book})
+class AddBookView(generic.ListView):
+    template_name = 'books.html'
+    context_object_name = 'book'
+    model = models.AddBooks
+
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-id')
 
 
-def books_detail_view(request, id):
-    if request.method == 'GET':
-        books_id = get_object_or_404(AddBooks, id=id)
-        return render(request, template_name='books_detail.html', context={'books_id': books_id})
+class BooksDetailView(generic.DetailView):
+    template_name = 'books_detail.html'
+    context_object_name = 'books_id'
+
+    def get_object(self, **kwargs):
+        books_id = self.kwargs.get('id')
+        return get_object_or_404(models.AddBooks, id=books_id)
+
+
+class SearchBookView(generic.ListView):
+    template_name = 'books.html'
+    context_object_name = 'book'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return models.AddBooks.objects.filter(title__icontains=self.request.GET.get('q'))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        contex = super().get_context_data(**kwargs)
+        contex['q'] = self.request.GET.get('q')
+        return contex
 
 
 def bio_view(request):
