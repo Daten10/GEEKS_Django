@@ -1,40 +1,67 @@
-{% include 'header.html'%}
+{% include 'header.html' %}
+<style>
+    .search-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px; /* Уменьшаем отступ между строкой поиска и контентом */
+    }
+    .form-control {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+    .card {
+        margin-bottom: 20px;
+        max-width: 18rem; /* Устанавливаем максимальную ширину карточек */
+        margin: 0 auto; /* Центрируем карточки на странице */
+    }
+</style>
 
+<form action="{% url 'search_cloth' %}" method="GET" class="search-form">
+    <input type="search" name="q" class="form-control" placeholder="Поиск">
+    <button type="submit" class="btn">Искать</button>
+</form>
 
-          {% for i in cloth %}
-            <li>
-                <center>
-                <div class="card" style="width: 18rem;">
-                <img src="{{ i.image.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
+<ul style="list-style-type: none; padding: 0; margin: 0;">
+    {% for i in cloth %}
+    <li>
+        <div class="card">
+            <img src="{{ i.image.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
                 <h5 class="card-title">{{ i.name }}</h5>
                 <p class="card-text">{{ i.price }}$</p>
-                </div>
-                <ul class="list-group list-group-flush">
+            </div>
+            <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{ i.description }}</li>
                 <li class="list-group-item">{% for j in i.tags.all %}
                     <p>#{{ j.name }}</p>
                 {% endfor %}</li>
-                </ul>
-                </div>
-                </center>
+            </ul>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
 
-            </li>
-          {% endfor %}
-
-
-
-    <br>
-    <center>
+<center>
     <a class="btn btn-primary" href="/men_cloth/" role="button">М</a>
     <a class="btn btn-primary" href="/kids_cloth/" role="button">Д</a>
     <a class="btn btn-primary" href="/women_cloth/" role="button">Ж</a>
     <br>
     <br>
     <a class="btn btn-primary" href="/cloth_all/" role="button">Вернуться</a>
-
-    </center>
-<br>
-
+</center>
 
 {% include 'footer.html'%}

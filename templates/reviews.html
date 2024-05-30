@@ -1,26 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h2 {
+            text-align: center;
+            color: #444;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            margin: 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label, textarea, input {
+            width: 100%;
+            margin: 10px 0;
+        }
+        textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        button {
+            display: inline-block;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button a {
+            color: #fff;
+            text-decoration: none;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button a:hover {
+            color: #ddd;
+        }
+    </style>
 </head>
 <body>
-<h2>Отзывы</h2>
+    {% include 'header.html' %}
+    <h2>Отзывы</h2>
     <ul>
-    {% for review in reviews %}
-    <li>
-       <p>{{ review.text }}</p>
-    </li>
-    {% endfor %}
-</ul>
+        {% for review in reviews %}
+        <li>
+            <p>{{ review.text }}</p>
+        </li>
+        {% endfor %}
+    </ul>
 
-<form action="/books/reviews/" method="get">
-    <label for="review">Оставьте ваш отзыв:</label><br>
-    <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-    <input type="submit" value="Отправить отзыв">
-</form>
-<br>
-<br>
-<button><a href="/books/">Вернуться назад</a></button>
+    <form action="/books/reviews/" method="get">
+        <label for="review">Оставьте ваш отзыв:</label><br>
+        <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Отправить отзыв">
+    </form>
+    <br><br>
+    <button><a href="/books/">Вернуться назад</a></button>
+    {% include 'footer.html' %}
 </body>
 </html>

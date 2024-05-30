@@ -6,43 +6,66 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('books', '0006_alter_review_options_review_review_book_review_stars'),
+        ("books", "0006_alter_review_options_review_review_book_review_stars"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='addbooks',
-            name='author',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Введите автора'),
+            model_name="addbooks",
+            name="author",
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="Введите автора"
+            ),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='book_genre',
-            field=models.CharField(blank=True, choices=[('Фантастика', 'Фантастика'), ('Детские', 'Детские'), ('Хоррор', 'Хоррор'), ('Романтика', 'Романтика'), ('Детектив', 'Детектив'), ('Другое', 'Другое')], max_length=100, verbose_name='Выберите жанр'),
+            model_name="addbooks",
+            name="book_genre",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("Фантастика", "Фантастика"),
+                    ("Детские", "Детские"),
+                    ("Хоррор", "Хоррор"),
+                    ("Романтика", "Романтика"),
+                    ("Детектив", "Детектив"),
+                    ("Другое", "Другое"),
+                ],
+                max_length=100,
+                verbose_name="Выберите жанр",
+            ),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='description',
-            field=models.TextField(blank=True, verbose_name='Напишите описание книги'),
+            model_name="addbooks",
+            name="description",
+            field=models.TextField(blank=True, verbose_name="Напишите описание книги"),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='images/', verbose_name='Загрузите фото'),
+            model_name="addbooks",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to="images/",
+                verbose_name="Загрузите фото",
+            ),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='key_words',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Ключевые слова'),
+            model_name="addbooks",
+            name="key_words",
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="Ключевые слова"
+            ),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='price',
-            field=models.PositiveIntegerField(blank=True, verbose_name='Укажите цену'),
+            model_name="addbooks",
+            name="price",
+            field=models.PositiveIntegerField(blank=True, verbose_name="Укажите цену"),
         ),
         migrations.AlterField(
-            model_name='addbooks',
-            name='title',
-            field=models.CharField(blank=True, max_length=100, verbose_name='Укажите название книги'),
+            model_name="addbooks",
+            name="title",
+            field=models.CharField(
+                blank=True, max_length=100, verbose_name="Укажите название книги"
+            ),
         ),
     ]

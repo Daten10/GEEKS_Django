@@ -1,50 +1,70 @@
-{% include 'header.html'%}
+{% include 'header.html' %}
+<style>
+    .search-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px; /* Уменьшаем отступ между строкой поиска и контентом */
+    }
+    .form-control {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+    .card {
+        margin-bottom: 20px;
+        max-width: 540px;
+    }
+    .card img {
+        border-radius: 5px 0 0 5px;
+        width: 100%;
+        height: auto;
+    }
+    .card-body {
+        padding: 20px;
+    }
+</style>
 
+<form action="{% url 'search' %}" method="GET" class="search-form">
+    <input type="search" name="q" class="form-control" placeholder="Search">
+    <button type="submit" class="btn">Поиск</button>
+</form>
 
- <div class="container">
-        <form action="{% url 'search' %}" method="GET" class="search-form">
-            <input type="text" type="search" name="q" class="form-control" placeholder="Search">
-            <button type="submit" class="btn btn-primary">Поиск</button>
-            <br>
-            <br>
-        </form>
- </div>
- <br>
-
-
-
-<ul style="list-style-type: none;">
-
-
-{% for j in book%}
-<div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-
-      <img
-
-        src="{{ j.image.url }}"
-
-        class="img-fluid rounded-start"
-      />
+<ul style="list-style-type: none; padding: 0; margin: 0;">
+    {% for j in book %}
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ j.image.url }}" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ j.title}}</h5>
+                    <p class="card-text">{{ j.description | slice:":99" }}...</p>
+                    <p class="card-text"><small class="text-muted">{{ j.publication }}</small></p>
+                    <a href="/books/{{ j.id }}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">{{ j.title}}</h5>
-        <p class="card-text">
-          {{ j.description | slice:":99" }}...
-        </p>
-        <p class="card-text">
-          <small class="text-muted">{{ j.publication }}</small>
-        </p>
-        <a href="/books/{{ j.id }}" class="btn btn-primary">Подробнее</a>
-      </div>
-    </div>
-  </div>
-</div>
- {% endfor %}
-
-<a class="btn btn-primary" href="/create_book/" role="button">Добавить книгу</a>
-<a class="btn btn-primary" href="/create_review/" role="button">Добавить отзыв</a>
+    {% endfor %}
 </ul>
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <a class="btn btn-primary" href="/create_book/" role="button">Добавить книгу</a>
+    <a class="btn btn-primary" href="/create_review/" role="button">Добавить отзыв</a>
+</div>
+
 {% include 'footer.html'%}

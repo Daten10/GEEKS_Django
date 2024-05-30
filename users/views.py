@@ -9,24 +9,24 @@ from . import models, middlewares, forms
 
 class RegistrationView(CreateView):
     form_class = forms.CustomRegistrationForm
-    template_name = 'users/register.html'
-    success_url = '/login/'
+    template_name = "users/register.html"
+    success_url = "/login/"
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        exp = form.cleaned_data['experience']
+        exp = form.cleaned_data["experience"]
         if exp < 1:
-            self.object.club = 'Новичок'
+            self.object.club = "Новичок"
         elif 1 <= exp <= 2:
-            self.object.club = 'не Новичок'
+            self.object.club = "не Новичок"
         elif 2 <= exp <= 3:
-            self.object.club = 'Старейшина'
+            self.object.club = "Старейшина"
         elif 3 <= exp <= 5:
-            self.object.club = 'Профи'
+            self.object.club = "Профи"
         elif exp > 5:
-            self.object.club = 'Книжный гуру'
+            self.object.club = "Книжный гуру"
         else:
-            self.object.club = 'Без опыта'
+            self.object.club = "Без опыта"
 
         self.object.save()
         return response
@@ -34,18 +34,18 @@ class RegistrationView(CreateView):
 
 class AuthLoginView(LoginView):
     form_class = AuthenticationForm
-    template_name = 'users/login.html'
+    template_name = "users/login.html"
 
     def get_success_url(self):
         return reverse("users:user_list")
 
 
 class AuthLogoutView(LogoutView):
-    next_page = reverse_lazy('user:login')
+    next_page = reverse_lazy("user:login")
 
 
 class UserListView(ListView):
-    template_name = 'users/user_list.html'
+    template_name = "users/user_list.html"
     model = models.CustomUser
 
     def get_queryset(self):
@@ -53,5 +53,5 @@ class UserListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['club'] = getattr(self.request, 'club', 'Без опыта')
+        context["club"] = getattr(self.request, "club", "Без опыта")
         return context

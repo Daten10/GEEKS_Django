@@ -4,10 +4,7 @@ from . import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-GENDER = (
-        ('Male', 'Male'),
-        ('Female', 'Female')
-    )
+GENDER = (("Male", "Male"), ("Female", "Female"))
 
 
 class CustomRegistrationForm(UserCreationForm):
@@ -25,24 +22,24 @@ class CustomRegistrationForm(UserCreationForm):
     class Meta:
         model = models.CustomUser
         fields = (
-            'username',
-            'email',
-            'password1',
-            'password2',
-            'name',
-            'surname',
-            'city',
-            'gender',
-            'phone_number',
-            'age',
-            'experience',
-            'telegram',
-            'favorite_genre'
+            "username",
+            "email",
+            "password1",
+            "password2",
+            "name",
+            "surname",
+            "city",
+            "gender",
+            "phone_number",
+            "age",
+            "experience",
+            "telegram",
+            "favorite_genre",
         )
 
     def save(self, commit=True):
         user = super(CustomRegistrationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        user.email = self.cleaned_data["email"]
         if commit:
             user.save()
         return user
@@ -51,15 +48,15 @@ class CustomRegistrationForm(UserCreationForm):
 @receiver(post_save, sender=models.CustomUser)
 def set_exp(sender, instance, created, **kwargs):
     if created:
-        print('Сигнал обработан пользователь создан')
+        print("Сигнал обработан пользователь создан")
         exp = instance.experience
         if exp < 1:
-            instance.club = 'Новичок'
+            instance.club = "Новичок"
         elif 1 <= exp <= 2:
-            instance.club = 'не Новичок'
+            instance.club = "не Новичок"
         elif 2 <= exp <= 3:
-            instance.club = 'Старейшина'
+            instance.club = "Старейшина"
         elif 3 <= exp <= 5:
-            instance.club = 'Профи'
+            instance.club = "Профи"
         elif exp > 5:
-            instance.club = 'Книжный гуру'
+            instance.club = "Книжный гуру"

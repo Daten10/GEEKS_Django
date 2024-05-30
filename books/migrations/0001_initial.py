@@ -7,24 +7,71 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='AddBooks',
+            name="AddBooks",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100, verbose_name='Укажите название книги')),
-                ('author', models.CharField(max_length=100, verbose_name='Введите автора')),
-                ('image', models.ImageField(blank=True, upload_to='images/', verbose_name='Загрузите фото')),
-                ('description', models.TextField(verbose_name='Напишите описание книги')),
-                ('file_book', models.FileField(blank=True, upload_to='file_book/', verbose_name='Загрузите эл. вариант')),
-                ('video', models.URLField(verbose_name='Укажите видео ссылку')),
-                ('book_genre', models.CharField(choices=[('Фантастика', 'Фантастика'), ('Детские', 'Детские'), ('Хоррор', 'Хоррор'), ('Романтика', 'Романтика'), ('Детектив', 'Детектив'), ('Другое', 'Другое')], max_length=100, verbose_name='Выберите жанр')),
-                ('price', models.PositiveIntegerField(verbose_name='Укажите цену')),
-                ('publication', models.DateTimeField(auto_now_add=True)),
-                ('key_words', models.CharField(max_length=100, verbose_name='Ключевые слова')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=100, verbose_name="Укажите название книги"
+                    ),
+                ),
+                (
+                    "author",
+                    models.CharField(max_length=100, verbose_name="Введите автора"),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True, upload_to="images/", verbose_name="Загрузите фото"
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(verbose_name="Напишите описание книги"),
+                ),
+                (
+                    "file_book",
+                    models.FileField(
+                        blank=True,
+                        upload_to="file_book/",
+                        verbose_name="Загрузите эл. вариант",
+                    ),
+                ),
+                ("video", models.URLField(verbose_name="Укажите видео ссылку")),
+                (
+                    "book_genre",
+                    models.CharField(
+                        choices=[
+                            ("Фантастика", "Фантастика"),
+                            ("Детские", "Детские"),
+                            ("Хоррор", "Хоррор"),
+                            ("Романтика", "Романтика"),
+                            ("Детектив", "Детектив"),
+                            ("Другое", "Другое"),
+                        ],
+                        max_length=100,
+                        verbose_name="Выберите жанр",
+                    ),
+                ),
+                ("price", models.PositiveIntegerField(verbose_name="Укажите цену")),
+                ("publication", models.DateTimeField(auto_now_add=True)),
+                (
+                    "key_words",
+                    models.CharField(max_length=100, verbose_name="Ключевые слова"),
+                ),
             ],
         ),
     ]

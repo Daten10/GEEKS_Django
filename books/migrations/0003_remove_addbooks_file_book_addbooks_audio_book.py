@@ -6,17 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('books', '0002_alter_addbooks_options_alter_addbooks_video'),
+        ("books", "0002_alter_addbooks_options_alter_addbooks_video"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='addbooks',
-            name='file_book',
+            model_name="addbooks",
+            name="file_book",
         ),
         migrations.AddField(
-            model_name='addbooks',
-            name='audio_book',
-            field=models.FileField(blank=True, null=True, upload_to='audio_book/', verbose_name='Загрузите аудиокнигу'),
+            model_name="addbooks",
+            name="audio_book",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                upload_to="audio_book/",
+                verbose_name="Загрузите аудиокнигу",
+            ),
         ),
     ]
