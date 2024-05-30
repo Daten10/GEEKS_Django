@@ -45,9 +45,7 @@ class SearchClothView(generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return models.Cloth.objects.filter(
-            name__icontains=self.request.GET.get("q")
-        )
+        return models.Cloth.objects.filter(name__icontains=self.request.GET.get("q"))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         contex = super().get_context_data(**kwargs)
